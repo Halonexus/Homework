@@ -64,6 +64,7 @@ int main()
 	int* input = getInput(&inputLength);
 	quickSort(input, inputLength);
 	int output = findRequiredElement(input, inputLength);
+	delete[] input;
 	if (output == NULL)
 	{
 		printf("Required element not found\n");
