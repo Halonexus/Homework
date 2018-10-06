@@ -101,5 +101,5 @@ int main()
 	printFractions(fractions, fractionNumber);
 	deleteArray(fractions, fractionNumber);
 
-    return 0;
+	return 0;
 }
