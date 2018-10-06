@@ -72,5 +72,5 @@ int main()
 		return 0;
 	}
 	printf("Maximum element that appears at least 2 times is %d\n", output);
-        return 0;
+	return 0;
 }
