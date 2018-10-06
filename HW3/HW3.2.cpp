@@ -13,7 +13,7 @@ int getStringLength(char* input)
 	return i;
 }
 
-void getInput(char** string1,char** string2)
+void getInput(char** string1, char** string2)
 {
 	int const maxStringLength = 256;
 	*string1 = new char[maxStringLength];
@@ -98,5 +98,5 @@ int main()
 
 	delete[] string1;
 	delete[] string2;
-    return 0;
+        return 0;
 }
