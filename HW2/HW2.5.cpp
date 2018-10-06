@@ -64,5 +64,5 @@ int main()
 	printArray(arrayToSort, arrayLength);
 
 	delete[] arrayToSort;
-    return 0;
+    	return 0;
 }
