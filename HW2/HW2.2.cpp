@@ -96,5 +96,5 @@ int main()
 	initialString[0] = '\0';
 	writeNumberAsSum(input, input, initialString);
 	delete[] initialString;
-    return 0;
+	return 0;
 }
