@@ -45,7 +45,7 @@ void quickSort(int* input, int size)
 	return;
 }
 
-int findRequiredElement(int* input, int inputLength)
+int findRequiredElement(int* input, int inputLength, bool* elementExists)
 {
 	for (int i = 1; i < inputLength; i++)
 	{
@@ -54,7 +54,7 @@ int findRequiredElement(int* input, int inputLength)
 			return input[i];
 		}
 	}
-	
+	*elementExists = false;
 	return NULL;
 }
 
@@ -63,13 +63,14 @@ int main()
 	int inputLength = 0;
 	int* input = getInput(&inputLength);
 	quickSort(input, inputLength);
-	int output = findRequiredElement(input, inputLength);
+	bool elementExists = true;
+	int output = findRequiredElement(input, inputLength, &elementExists);
 	delete[] input;
-	if (output == NULL)
+	if (!elementExists)
 	{
 		printf("Required element not found\n");
 		return 0;
 	}
 	printf("Maximum element that appears at least 2 times is %d\n", output);
-    return 0;
+        return 0;
 }
