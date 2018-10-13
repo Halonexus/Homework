@@ -123,7 +123,6 @@ void fillPhoneBookFromFile(PhoneBook* book)
 	{
 		return;
 	}
-	int count = 1;
 	while (!feof(file))
 	{		
 		char* name = new char[stringLength];
@@ -133,7 +132,6 @@ void fillPhoneBookFromFile(PhoneBook* book)
 			break;
 		}
 		addRecord(book, name, phoneNumber);
-		count++;
 	}
 	fclose(file);
 	return;
