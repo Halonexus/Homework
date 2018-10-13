@@ -132,7 +132,6 @@ void fillPhoneBookFromFile(PhoneBook* book)
 		{
 			break;
 		}
-		printf("%d %s %d\n", count, name, phoneNumber);
 		addRecord(book, name, phoneNumber);
 		count++;
 	}
