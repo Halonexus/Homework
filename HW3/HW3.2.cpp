@@ -13,21 +13,21 @@ int getStringLength(char* input)
 	return i;
 }
 
-void getInput(char** string1,char** string2)
+void getInput(char*& string1, char*& string2)
 {
 	int const maxStringLength = 256;
-	*string1 = new char[maxStringLength];
-	*string2 = new char[maxStringLength];
+	string1 = new char[maxStringLength];
+	string2 = new char[maxStringLength];
 	printf("Enter the first string:\n");
-	scanf("%255s", *string1);
+	scanf("%255s", string1);
 	printf("Enter the second string:\n");
-	scanf("%255s", *string2);
+	scanf("%255s", string2);
 	return;
 }
 
 struct NumberOfChars 
 {
-	char character = NULL;
+	char character = '\0';
 	int numberInString1 = 0;
 	int numberInString2 = 0;
 };
@@ -44,7 +44,7 @@ bool fillCharArray(NumberOfChars* charArray, char* string1, char* string2)
 				charArray[j].numberInString1++;
 				break;
 			}
-			else if (charArray[j].character == NULL)
+			else if (charArray[j].character == '\0')
 			{				
 				charArray[j].character = string1[i];
 				charArray[j].numberInString1++;
@@ -67,7 +67,7 @@ bool fillCharArray(NumberOfChars* charArray, char* string1, char* string2)
 				}
 				break;
 			}
-			else if (charArray[j].character == NULL)
+			else if (charArray[j].character == '\0')
 			{				
 				return false;
 			}
@@ -81,7 +81,7 @@ int main()
 {	
 	char* string1 = nullptr;
 	char* string2 = nullptr;
-	getInput(&string1, &string2);
+	getInput(string1, string2);
 
 	NumberOfChars charArray[256] = {};
 
