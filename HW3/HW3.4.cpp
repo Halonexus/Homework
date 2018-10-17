@@ -5,15 +5,6 @@
 #include <cstdlib>
 #include <ctime>
 
-int min(int a, int b)
-{
-	if (a < b)
-	{
-		return a;
-	}
-	return b;
-}
-
 int* getArrayOfDigits(int number)
 {
 	int* digitArray = new int[10]{};
@@ -27,9 +18,28 @@ int* getArrayOfDigits(int number)
 	return digitArray;
 }
 
+int getNumber()
+{
+	int number = 0;
+	int digits[] = { 0,1,2,3,4,5,6,7,8,9 };
+	int const numberOfDigits = 4;
+	int multiplyer = 1;
+	for (int i = 0; i < numberOfDigits; i++)
+	{
+		int temp = digits[9 - i];
+		int random = rand() % (10 - i);
+		digits[9 - i] = digits[random];
+		digits[random] = temp;		
+		number += digits[9 - i] * multiplyer;
+		multiplyer *= 10;
+	}
+	return number;
+}
+
 void play()
 {	
-	int targetNumber = rand() % 10000;	
+	int targetNumber = getNumber();
+	int* targetDigits = getArrayOfDigits(targetNumber);
 	bool isPlaying = true;
 	printf("Try to guess a 4 digit number:\n");
 	int stepCounter = 0;
@@ -41,7 +51,6 @@ void play()
 		{
 			scanf("%d", &input);
 		}
-		int* targetDigits = getArrayOfDigits(targetNumber);
 		int* inputDigits = getArrayOfDigits(input);
 		int key = targetNumber;
 		int matches = 0;
@@ -51,18 +60,15 @@ void play()
 			if (key % 10 == input % 10)
 			{
 				matches++;
-				inputDigits[input % 10]--;
-				targetDigits[input % 10]--;
+			}
+			else if(targetDigits[input % 10] > 0)
+			{
+				misses++;
 			}
 			key /= 10;
 			input /= 10;
 		}
-		for (int i = 0; i < 10; i++)
-		{
-			misses += min(inputDigits[i], targetDigits[i]);
-		}
-		delete[] inputDigits;
-		delete[] targetDigits;
+		delete[] inputDigits;	
 		printf("\t You got %d matches and %d misses\n", matches, misses);
 		if (matches >= 4)
 		{
@@ -70,6 +76,7 @@ void play()
 		}
 		stepCounter++;
 	}
+	delete[] targetDigits;
 	printf("You've won in %d steps\n", stepCounter);
 	return;
 }
