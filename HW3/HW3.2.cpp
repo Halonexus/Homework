@@ -98,5 +98,5 @@ int main()
 
 	delete[] string1;
 	delete[] string2;
-    return 0;
+	return 0;
 }
