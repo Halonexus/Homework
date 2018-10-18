@@ -46,12 +46,31 @@ void play()
 	while (isPlaying)
 	{
 		int input = 0;
-		scanf("%d", &input);
-		while (input > 9999)
+		int* inputDigits = nullptr;
+		bool gettingInput = true;
+		while (gettingInput)
 		{
+			printf("Enter a 4 digit number:\n");
 			scanf("%d", &input);
+			if (input >= 0 && input < 10000)
+			{
+				inputDigits = getArrayOfDigits(input);
+				bool correctDigits = true;
+				for (int i = 0; i < 10; i++)
+				{
+					if (inputDigits[i] > 1)
+					{
+						correctDigits = false;
+						break;
+					}
+				}
+				delete[] inputDigits;
+				if (correctDigits)
+				{
+					gettingInput = false;
+				}
+			}
 		}
-		int* inputDigits = getArrayOfDigits(input);
 		int key = targetNumber;
 		int matches = 0;
 		int misses = 0;
@@ -67,8 +86,7 @@ void play()
 			}
 			key /= 10;
 			input /= 10;
-		}
-		delete[] inputDigits;	
+		}			
 		printf("\t You got %d matches and %d misses\n", matches, misses);
 		if (matches >= 4)
 		{
