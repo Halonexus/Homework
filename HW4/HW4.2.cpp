@@ -13,7 +13,7 @@ int main()
 		char setting = '\n';
 		while (setting == '\n')
 		{
-			scanf("%c", &setting);
+			scanf(" %c", &setting);
 		}		
 		switch (setting)
 		{
@@ -27,9 +27,9 @@ int main()
 			char* name = new char[stringLength];
 			int phoneNumber = 0;
 			printf("Enter the name: ");
-			scanf("%s", name);
+			scanf(" %255[^\n]", name);
 			printf("Enter the phone number: ");
-			scanf("%d", &phoneNumber);
+			scanf(" %d", &phoneNumber);
 			addRecord(phoneBook, name, phoneNumber);
 			break;
 		}
@@ -37,7 +37,7 @@ int main()
 		{
 			char* name = new char[stringLength];
 			printf("Enter the name: ");
-			scanf("%s", name);
+			scanf(" %255[^\n]", name);
 			Record* record = findRecordByName(phoneBook, name);
 			delete[] name;
 			if (!record)
@@ -53,7 +53,7 @@ int main()
 		{
 			int phoneNumber = 0;
 			printf("Enter the phone number: ");
-			scanf("%d", &phoneNumber);
+			scanf(" %d", &phoneNumber);
 			Record* record = findRecordByPhoneNumber(phoneBook, phoneNumber);
 			if (!record)
 			{
