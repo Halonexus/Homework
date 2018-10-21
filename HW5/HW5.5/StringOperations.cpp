@@ -45,20 +45,21 @@ int parse(const char* const string)
 	{
 		return -1;
 	}
+	char* croppedString = crop(string);
 	bool isNegative = false;
-	if (string[0] == '-')
+	if (croppedString[0] == '-')
 	{
 		isNegative = true;
 	}
 	char digits[] = { '0','1','2','3','4','5','6','7','8','9' };
 	int result = 0;
 	int multiplyer = 1;
-	int length = getLength(string);
+	int length = getLength(croppedString);
 	for (int i = 0; i < length - isNegative; i++)
 	{
 		for (int j = 0; j < 10; j++)
 		{
-			if (string[length - 1 - i] == digits[j])
+			if (croppedString[length - 1 - i] == digits[j])
 			{
 				result += multiplyer * j;
 				break;
@@ -66,6 +67,7 @@ int parse(const char* const string)
 		}
 		multiplyer *= 10;
 	}
+	delete[] croppedString;
 	if (isNegative)
 	{
 		result *= -1;
@@ -81,4 +83,24 @@ int getLength(const char* const string)
 		length++;
 	}
 	return length;
+}
+
+char* crop(const char* string)
+{
+	if (!string)
+	{
+		return nullptr;
+	}
+	int length = getLength(string);
+	int j = 0;
+	char* newString = new char[length + 1];
+	for (int i = 0; i < length; i++)
+	{
+		if ((string[i] >= '0' && string[i] <= '9') || string[i] == '-')
+		{
+			newString[j++] = string[i];
+		}
+	}
+	newString[j] = '\0';
+	return newString;
 }

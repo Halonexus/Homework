@@ -94,9 +94,18 @@ void processString(char*& string, Stack& stack)
 		{
 			i++;
 			char* subString = new char[stringLength];
+			int innerBrackets = 0;
 			int length = 0;
-			while (string[i] != ')')
+			while (string[i] != ')' || innerBrackets > 0)
 			{
+				if (string[i] == '(')
+				{
+					innerBrackets++;
+				}
+				else if (string[i] == ')')
+				{
+					innerBrackets--;
+				}
 				subString[length++] = string[i++];
 			}
 			subString[length] = '\0';
@@ -131,7 +140,7 @@ void processString(char*& string, Stack& stack)
 		else if (string[i] == '*' || string[i] == '+' || string[i] == '-' || string[i] == '/')
 		{			
 			int priority = findPriority(string[i]);
-			while (!isEmpty(operations) && findPriority(*operations.head->operation) > priority)
+			while (!isEmpty(operations) && findPriority(*operations.head->operation) >= priority)
 			{
 				StackElement* temp = pop(operations);
 				push(stack, *temp->operation);
@@ -208,7 +217,7 @@ int findPriority(const char operation)
 	{
 		if (priorityList[i] == operation)
 		{
-			priority = i;
+			priority = i / 2;
 			break;
 		}
 	}
