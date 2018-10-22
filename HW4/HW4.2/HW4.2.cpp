@@ -14,7 +14,7 @@ int main()
 		while (setting == '\n')
 		{
 			scanf(" %c", &setting);
-		}		
+		}
 		switch (setting)
 		{
 		case '0':
@@ -27,9 +27,9 @@ int main()
 			char* name = new char[stringLength];
 			int phoneNumber = 0;
 			printf("Enter the name: ");
-			scanf(" %255[^\n]", name);
+			scanf(" %255[^\n]s", name);
 			printf("Enter the phone number: ");
-			scanf(" %d", &phoneNumber);
+			scanf("%d", &phoneNumber);
 			addRecord(phoneBook, name, phoneNumber);
 			break;
 		}
@@ -37,7 +37,7 @@ int main()
 		{
 			char* name = new char[stringLength];
 			printf("Enter the name: ");
-			scanf(" %255[^\n]", name);
+			scanf(" %255[^\n]s", name);
 			Record* record = findRecordByName(phoneBook, name);
 			delete[] name;
 			if (!record)
@@ -45,7 +45,7 @@ int main()
 				printf("No record found.\n");
 				break;
 			}
-			int phoneNumber = record->phoneNumber;			
+			int phoneNumber = record->phoneNumber;
 			printf("The phone number is %d.\n", phoneNumber);
 			break;
 		}
@@ -53,7 +53,7 @@ int main()
 		{
 			int phoneNumber = 0;
 			printf("Enter the phone number: ");
-			scanf(" %d", &phoneNumber);
+			scanf("%d", &phoneNumber);
 			Record* record = findRecordByPhoneNumber(phoneBook, phoneNumber);
 			if (!record)
 			{
