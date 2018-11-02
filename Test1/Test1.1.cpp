@@ -44,6 +44,10 @@ int main()
 		}
 		else
 		{
+			while (inputString[i] == ' ')
+			{
+				i++;
+			}
 			for (int k = 0; k < targetNumberOfSpaces; k++)
 			{
 				output[j++] = ' ';
@@ -53,6 +57,7 @@ int main()
 				output[j++] = ' ';
 				remainingSpaces--;
 			}
+			i--;
 		}
 		i++;
 	}
