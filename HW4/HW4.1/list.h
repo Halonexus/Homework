@@ -12,7 +12,8 @@ struct List
 };
 
 void addElement(List*, int);
-ListElement* deleteElementInOrder(List*, ListElement*, int);
+void deleteElementInOrder(List*, int);
+void deleteNextElement(List* list, ListElement* element);
 List* createList(int);
 void deleteList(List*);
 int getHeadValue(List*);

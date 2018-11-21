@@ -14,22 +14,17 @@ void addElement(List* list, int value)
 	return;
 }
 
-ListElement* deleteElementInOrder(List* list, ListElement* currentElement, int step)
+void deleteElementInOrder(List* list, int index)
 {
-	while (step > 1)
+	ListElement* current = list->head;
+	while (index > 1)
 	{
-		currentElement = currentElement->next;
-		step--;
+		current = current->next;
+		index--;
 	}
-	ListElement* nextElement = currentElement->next->next;
-	if (currentElement->next == list->head)
-	{
-		list->head = nextElement;
-	}
-	delete currentElement->next;
-	currentElement->next = nextElement;
-
-	return currentElement;
+	deleteNextElement(list, current);
+	list->head = current;
+	return;
 }
 
 List* createList(int numberOfElements)
@@ -40,6 +35,14 @@ List* createList(int numberOfElements)
 		addElement(newList, numberOfElements - i);
 	}
 	return newList;
+}
+
+void deleteNextElement(List* list, ListElement* element)
+{
+	ListElement* temp = element->next;
+	element->next = temp->next;
+	delete temp;
+	return;
 }
 
 void deleteList(List* list)

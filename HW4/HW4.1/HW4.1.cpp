@@ -9,10 +9,9 @@ int main()
 	scanf("%d %d", &numberOfPeople, &deletionNumber);
 	List* list = createList(numberOfPeople);
 	deletionNumber = deletionNumber % numberOfPeople;
-	ListElement* current = list->head;
 	while (numberOfPeople > 1)
 	{
-		current = deleteElementInOrder(list, current, deletionNumber);
+		deleteElementInOrder(list, deletionNumber);
 		numberOfPeople--;
 	}
 	int lastPersonNumber = getHeadValue(list);
