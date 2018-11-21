@@ -24,6 +24,17 @@ void push(Stack& stack, const char operation)
 	return;
 }
 
+void push(Stack& stack, const StackElement* const element)
+{
+	if (element->operation)
+	{
+		push(stack, *element->operation);
+		return;
+	}
+	push(stack, element->value);
+	return;
+}
+
 StackElement* pop(Stack& stack)
 {
 	if (&stack && !isEmpty(stack))

@@ -14,6 +14,7 @@ struct Stack
 
 void push(Stack&, const int);
 void push(Stack&, const char);
+void push(Stack&, const StackElement* const);
 StackElement* pop(Stack&);
 void deleteStack(Stack&);
 void deleteElement(StackElement&);

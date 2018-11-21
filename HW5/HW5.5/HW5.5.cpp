@@ -113,15 +113,22 @@ void processString(char*& string, Stack& stack)
 			if (subString[0] == '-')
 			{
 				value = parse(subString);
+				push(stack, value);
 			}
 			else
 			{
-				Stack newStack;
-				processString(subString, newStack);				
-				value = calculateOutput(newStack);
+				Stack newStack, reverseStack;
+				processString(subString, newStack);
+				while (!isEmpty(newStack))
+				{
+					push(reverseStack, pop(newStack));
+				}
+				while (!isEmpty(reverseStack))
+				{
+					push(stack, pop(reverseStack));
+				}
 			}
 			delete[] subString;
-			push(stack, value);			
 		}
 		else if (string[i] >= '0' && string[i] <= '9')
 		{
@@ -138,7 +145,7 @@ void processString(char*& string, Stack& stack)
 			i--;
 		}
 		else if (string[i] == '*' || string[i] == '+' || string[i] == '-' || string[i] == '/')
-		{			
+		{
 			int priority = findPriority(string[i]);
 			while (!isEmpty(operations) && findPriority(*operations.head->operation) >= priority)
 			{
@@ -146,7 +153,7 @@ void processString(char*& string, Stack& stack)
 				push(stack, *temp->operation);
 				deleteElement(*temp);
 			}
-			push(operations, string[i]);			
+			push(operations, string[i]);
 		}
 		i++;
 	}
@@ -171,7 +178,7 @@ int calculateOutput(Stack& stack)
 		}
 		else
 		{
-			result = temp->value;			
+			result = temp->value;
 		}
 		deleteElement(*temp);
 	}
