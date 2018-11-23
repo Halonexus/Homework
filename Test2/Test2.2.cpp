@@ -9,7 +9,6 @@ int main()
 	scanf("%255s", fileName);
 	FILE* file = fopen(fileName, "r");
 	delete[] fileName;
-	char* string = new char[stringLength];//
 	int const days[12] = { 31,28,31,30,31,30,31,31,30,31,30,31 };
 	int minDay = -1;
 	int minMonth = -1;
