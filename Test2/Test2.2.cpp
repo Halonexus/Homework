@@ -9,7 +9,7 @@ int main()
 	scanf("%255s", fileName);
 	FILE* file = fopen(fileName, "r");
 	delete[] fileName;
-	int const days[12] = { 31,28,31,30,31,30,31,31,30,31,30,31 };
+	int const days[12] = { 31,29,31,30,31,30,31,31,30,31,30,31 };
 	int minDay = -1;
 	int minMonth = -1;
 	int minYear = -1;
@@ -19,9 +19,10 @@ int main()
 		int month = 0;
 		int year = 0;
 		fscanf(file, "%d.%d.%d", &day, &month, &year);
-		if ((year >= 0) && (month <= 12) && (month > 0) && (day > 0) && 
-			(day <= days[month - 1]) && 
-			((month != 2) || (year % 4 == 0) && (year % 100 != 0) && (day <= days[1] + 1)))
+		if ((year >= 0) && (month <= 12) && (month > 0) && (day > 0) &&
+			(day <= days[month - 1]) &&
+			((month != 2) || !((year % 4 == 0) && (year % 100 != 0)) && 
+			(day <= days[1] - 1) || ((year % 4 == 0) && (year % 100 != 0)) && (day <= days[1])))
 		{
 			if (((minYear < 0) || (year < minYear)) || ((year == minYear)
 				&& ((month < minMonth) || ((month == minMonth) && (day < minDay)))))
