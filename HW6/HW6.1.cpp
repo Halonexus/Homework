@@ -22,6 +22,36 @@ int getExponent(double number)
 	return exponent;
 }
 
+int raisePower(int base, int power)
+{
+	int result = base;
+	for (int i = 0; i < power-1; i++)
+	{
+		result = result * base;
+	}
+	return result;
+}
+
+int getPrecision(double fraction)
+{
+	int const maxPrecisionDigits = 6;
+	int precision = maxPrecisionDigits;
+	int temp = (int)(fraction * raisePower(10, maxPrecisionDigits));
+	for (int i = 0; i < maxPrecisionDigits; i++)
+	{
+		if (temp % 10 == 0)
+		{
+			precision--;
+			temp = temp / 10;
+		}
+		else
+		{
+			break;
+		}
+	}
+	return precision;
+}
+
 int main()
 {
 	double number = 0.0;
@@ -38,7 +68,7 @@ int main()
 		char* byte = (char*)&number;
 		printf("Result: ");
 		printf((byte[7] & 0x80) ? "-" : "+");
-		printf("%f*2^%d\n", fraction, exponent);
+		printf("%.*f * 2^%d\n", getPrecision(fraction), fraction, exponent);
 	}
 	return 0;
 }
