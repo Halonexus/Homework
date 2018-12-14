@@ -9,7 +9,10 @@ int main()
 	while (number != 0)
 	{
 		scanf("%d", &number);
-		addSetElement(set, number);
+		if(number != 0)
+		{
+			addSetElement(set, number);
+		}
 	}
 	printTreeAscendingNoCopies(set);
 	deleteSet(set);
