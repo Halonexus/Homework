@@ -30,6 +30,8 @@ int main()
 		printText(tree, input, output);
 		fclose(input);
 		fclose(output);
+		deleteTree(tree);
+		delete tree;
 	}
 	delete[] filename;
 	return 0;
@@ -75,6 +77,7 @@ void getTree(Element*& element, FILE*& file)
 		}
 		return;
 	}
+	delete[] temp;
 	element = new Element;
 	getTree(element->leftChild, file);
 	getTree(element->rightChild, file);
