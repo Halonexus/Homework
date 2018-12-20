@@ -40,6 +40,10 @@ TreeElement* rotateLeft(TreeElement* element)
 
 TreeElement* balance(TreeElement* element)
 {
+	if (!element)
+	{
+		return nullptr;
+	}
 	updateHeight(element);
 	if (balanceFactor(element) == 2)
 	{
