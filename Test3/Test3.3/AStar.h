@@ -9,4 +9,4 @@ struct Node
 	Node* parent = nullptr;
 };
 
-bool AStar(Node* start, Node* end, bool** map, int size);
+bool aStar(Node* start, Node* end, bool** map, int size);

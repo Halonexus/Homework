@@ -140,10 +140,6 @@ void deleteTree(TreeElement*& element)
 	{
 		deleteTree(element->leftChild);
 		deleteTree(element->rightChild);
-		if (element->node)
-		{
-			delete element->node;
-		}
 		delete element;
 	}
 	return;

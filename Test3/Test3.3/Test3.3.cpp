@@ -44,10 +44,10 @@ int main()
 		for (int i = 0; i < rows; i++)
 		{
 			int count = 0;
-			Node* end = new Node{ i,0,0,0,nullptr };
+			Node* end = new Node{ i, 0, 0, 0, nullptr };
 			for (int j = 0; j < rows; j++)
 			{
-				Node* start = new Node{ j,0,0,0,nullptr };
+				Node* start = new Node{ j, 0, 0, 0, nullptr };
 				if (aStar(start, end, result, rows))
 				{
 					count++;

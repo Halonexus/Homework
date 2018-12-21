@@ -2,7 +2,7 @@
 #include "AStar.h"
 #include "AVLTree.h"
 
-bool AStar(Node* start, Node* end, bool** map, int size)
+bool aStar(Node* start, Node* end, bool** map, int size)
 {
 	AVLTree open, closed;
 	addTreeElement(open, start);
@@ -14,7 +14,7 @@ bool AStar(Node* start, Node* end, bool** map, int size)
 		{
 			if (map[q->number][i])
 			{
-				Node* child = new Node{ i,0,0,0,q };
+				Node* child = new Node{ i, 0, 0, 0, q };
 				child->g = q->g + 1;
 				child->f = child->g;
 				if (child->number == end->number)
