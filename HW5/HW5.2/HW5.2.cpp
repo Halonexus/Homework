@@ -1,10 +1,10 @@
 #include <cstdio>
+#include "StringOperations.h"
 
-char* getInput(FILE* const file);
+char* getInput(FILE*& file);
 void processString(char* string);
 char* removeCopiesOfLetters(char* string);
 void printWord(const char* const string);
-int getLength(const char* const string);
 bool isLetter(const char character);
 
 int const stringLength = 256;
@@ -13,19 +13,19 @@ int main()
 {
 	FILE* file;
 	fputs("Enter The filename: ", stdout);
-	char* fileName = new char[stringLength];
-	fgets(fileName, stringLength, stdin);
-	fileName[getLength(fileName) - 1] = '\0';
-	file = fopen(fileName, "r");
-	delete[] fileName;
+	char* filename = new char[stringLength];
+	fgets(filename, stringLength, stdin);
+	trim(filename);
+	file = fopen(filename, "r");
+	delete[] filename;
 	if (file)
 	{
-		while (feof(file) == 0)
+		while (!feof(file))
 		{
 			char* string = getInput(file);
 			processString(string);
 			delete[] string;
-		}		
+		}
 		fclose(file);
 	}
 	else
@@ -35,31 +35,11 @@ int main()
 	return 0;
 }
 
-char* getInput(FILE* const file)
+char* getInput(FILE*& file)
 {
-	int length = 1;
-	fpos_t current;
-	fgetpos(file, &current);
-	char temp = fgetc(file);
-	while (temp != '\n')
-	{
-		temp = fgetc(file);
-		length++;
-	}
-	char* string = new char[length + 1];
-	fsetpos(file, &current);
-	fgets(string, length + 1, file);
-	if (string[length - 1] == '\n')
-	{
-		string[length - 1] = '\0';
-	}
-	//removes unneeded characters from the beginning of the file
-	if ((string[0] == -17) && (string[1] = -69) && (string[2] == -65))
-	{
-		string[0] = '\r';
-		string[1] = '\r';
-		string[2] = '\r';
-	}
+	char* string = new char[stringLength];
+	fgets(string, stringLength, file);
+	trim(string);
 	return string;
 }
 
@@ -82,7 +62,7 @@ void processString(char* string)
 			delete[] word;
 			delete[] subString;
 			i--;
-		}		
+		}
 		i++;
 	}
 	fputs("\n", stdout);
@@ -92,30 +72,19 @@ void processString(char* string)
 int normalizeIndex(char letter)
 {
 	int const englishAlphabetLength = 26;
-	int const russianAlphabetLength = 33;
 	char const englishUpperFirstLetter = 'A';
 	char const englishLowerFirstLetter = 'a';
-	char const russianUpperFirstLetter = 'А';
-	char const russianLowerFirstLetter = 'а';
 
 	int index = 0;
 
 	if (letter >= 'A' && letter <= 'Z')
 	{
-		index = (letter - englishUpperFirstLetter) % englishAlphabetLength + russianAlphabetLength;
+		index = (letter - englishUpperFirstLetter) % englishAlphabetLength;
 
 	}
 	else if (letter >= 'a' && letter <= 'z')
 	{
-		index = (letter - englishLowerFirstLetter) % englishAlphabetLength + russianAlphabetLength;
-	}
-	else if (letter >= 'а' && letter <= 'я')
-	{
-		index = (letter - russianLowerFirstLetter) % russianAlphabetLength;
-	}
-	else if (letter >= 'А' && letter <= 'Я')
-	{
-		index = (letter - russianUpperFirstLetter) % russianAlphabetLength;
+		index = (letter - englishLowerFirstLetter) % englishAlphabetLength;
 	}
 	return index;
 }
@@ -125,10 +94,10 @@ char* removeCopiesOfLetters(char* string)
 	char* word = new char[stringLength];
 	int i = 0;
 	int j = 0;
-	bool letters[59] = {};
+	bool letters[26] = {};
 	while (string[i] != '\0')
 	{
-		int index = normalizeIndex(string[i]);		
+		int index = normalizeIndex(string[i]);
 		if (letters[index] == false)
 		{
 			letters[index] = true;
@@ -147,21 +116,8 @@ void printWord(const char* const string)
 	return;
 }
 
-
-int getLength(const char* const string)
-{
-	int length = 0;
-	while (string[length] != '\0')
-	{
-		length++;
-	}
-	return length;
-}
-
 bool isLetter(const char character)
 {
 	return ((character >= 'a' && character <= 'z')
-		|| (character >= 'A' && character <= 'Z')
-		|| (character >= 'а' && character <= 'я')
-		|| (character >= 'А' && character <= 'Я'));
+		|| (character >= 'A' && character <= 'Z'));
 }
