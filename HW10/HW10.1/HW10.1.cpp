@@ -81,12 +81,12 @@ void getMap(bool**& map, int rows, int columns, FILE* file)
 		fgets(character, 2, file);
 		if (character[0] == '0')
 		{
-			map[i / rows][i % columns] = 0;
+			map[i / columns][i % columns] = 0;
 			i++;
 		}
 		else if (character[0] == '1')
 		{
-			map[i / rows][i % columns] = 1;
+			map[i / columns][i % columns] = 1;
 			i++;
 		}
 	}
