@@ -8,6 +8,7 @@ void printMessage();
 void getInput(char*& input);
 void printOutput(const int output);
 void freeMemory(char*);
+void calculateStack(bool&, char*&);
 
 int const stringLength = 256;
 
@@ -17,22 +18,28 @@ int main()
 	while (!isExiting)
 	{
 		char* input = nullptr;
-		Stack stack;
 		printMessage();
 		getInput(input);
-		processString(input, stack);
-		if (!input)
-		{
-			isExiting = true;
-		}
-		else
-		{
-			int output = calculateOutput(stack);
-			printOutput(output);
-			freeMemory(input);
-		}
+		calculateStack(isExiting, input);
 	}
 	return 0;
+}
+
+void calculateStack(bool& isExiting, char*& input)
+{
+	Stack stack;
+	processString(input, stack);
+	if (!input)
+	{
+		isExiting = true;
+	}
+	else
+	{
+		int output = calculateOutput(stack);
+		printOutput(output);
+		freeMemory(input);
+	}
+	return;
 }
 
 void printOutput(const int output)
