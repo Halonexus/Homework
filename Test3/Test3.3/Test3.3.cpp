@@ -29,17 +29,25 @@ int main()
 	createAdjacencyMatrix(matrix, result, rows, columns);
 	for (int i = 0; i < rows; i++)
 	{
+		for (int j = 0; j < rows; j++)
+		{
+			printf("%d", result[i][j]);
+		}
+		printf("\n");
+	}
+	for (int i = 0; i < rows; i++)
+	{
 		int count = 0;
 		Node* end = new Node{ i,0,0,0,nullptr };
 		for (int j = 0; j < rows; j++)
 		{
 			Node* start = new Node{ j,0,0,0,nullptr };
-			if (AStar(start, end, result, rows))
+			if (aStar(start, end, result, rows))
 			{
 				count++;
 			}
 		}
-		if (count == rows - 1)
+		if (count == rows)
 		{
 			printf("Point %d is reachable from every point.\n", i);
 		}
@@ -58,6 +66,7 @@ void createAdjacencyMatrix(int** matrix, bool**& adjMatrix, int rows, int column
 {
 	for (int i = 0; i < rows; i++)
 	{
+		adjMatrix[i][i] = true;
 		for (int j = 0; j < columns; j++)
 		{
 			if (matrix[i][j] == -1)
