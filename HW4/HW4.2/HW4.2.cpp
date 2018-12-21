@@ -1,21 +1,27 @@
 #include <cstdio>
 #include "phonebook.h"
+#include "StringOperations.h"
 
 int main()
 {
 	int const stringLength = 256;
 	PhoneBook* phoneBook = new PhoneBook;
-	fillPhoneBookFromFile(phoneBook);
+	fputs("Enter the name of the input file or enter anything else to skip: ", stdout);
+	char* filename = new char[stringLength];
+	fgets(filename, stringLength, stdin);
+	trim(filename);
+	FILE* input = fopen(filename, "r");
+	delete[] filename;
+	fillPhoneBookFromFile(phoneBook, input);
 	bool exiting = false;
 	while (!exiting)
 	{
-		printf("0 - Exit.\n1 - Add a new record.\n2 - Find the phone number by name.\n3 - Find the name by phone number.\n4 - Save all records to a file.\n");
-		char setting = '\n';
-		while (setting == '\n')
-		{
-			scanf(" %c", &setting);
-		}
-		switch (setting)
+		fputs("0 - Exit.\n1 - Add a new record.\n"
+			"2 - Find the phone number by name.\n3 - Find the name by phone number.\n"
+			"4 - Save all records to a file.\n", stdout);
+		char setting[3] = { '\0' };
+		fgets(setting, 3, stdin);
+		switch (setting[0])
 		{
 		case '0':
 		{
@@ -25,48 +31,70 @@ int main()
 		case '1':
 		{
 			char* name = new char[stringLength];
-			int phoneNumber = 0;
-			printf("Enter the name: ");
-			scanf(" %255[^\n]s", name);
-			printf("Enter the phone number: ");
-			scanf("%d", &phoneNumber);
+			fputs("Enter the name: ", stdout);
+			fgets(name, stringLength, stdin);
+			trim(name);
+			fputs("Enter the phone number: ", stdout);
+			char* number = new char[stringLength];
+			fgets(number, stringLength, stdin);
+			trim(number);
+			int phoneNumber = parseInt(number);
+			delete[] number;
 			addRecord(phoneBook, name, phoneNumber);
 			break;
 		}
 		case '2':
 		{
 			char* name = new char[stringLength];
-			printf("Enter the name: ");
-			scanf(" %255[^\n]s", name);
+			fputs("Enter the name: ", stdout);
+			fgets(name, stringLength, stdin);
+			trim(name);
 			Record* record = findRecordByName(phoneBook, name);
 			delete[] name;
 			if (!record)
 			{
-				printf("No record found.\n");
+				fputs("No record found.\n", stdout);
 				break;
 			}
 			int phoneNumber = record->phoneNumber;
-			printf("The phone number is %d.\n", phoneNumber);
+			fputs("The phone number is ", stdout);
+			char* temp = new char[stringLength];
+			temp = intToString(phoneNumber);
+			fputs(temp, stdout);
+			fputs("\n", stdout);
+			delete[] temp;
 			break;
 		}
 		case '3':
 		{
-			int phoneNumber = 0;
-			printf("Enter the phone number: ");
-			scanf("%d", &phoneNumber);
+
+			fputs("Enter the phone number: ", stdout);
+			char* number = new char[stringLength];
+			fgets(number, stringLength, stdin);
+			trim(number);
+			int phoneNumber = parseInt(number);
+			delete[] number;
 			Record* record = findRecordByPhoneNumber(phoneBook, phoneNumber);
 			if (!record)
 			{
-				printf("No record found.\n");
+				fputs("No record found.\n", stdout);
 				break;
 			}
 			char* name = findRecordByPhoneNumber(phoneBook, phoneNumber)->name;
-			printf("The name is %s.\n", name);
+			fputs("The name is ", stdout);
+			fputs(name, stdout);
+			fputs("\n", stdout);
 			break;
 		}
 		case '4':
 		{
-			writeToNewFile(phoneBook);
+			fputs("Enter the new filename: ", stdout);
+			char* filename = new char[stringLength];
+			fgets(filename, stringLength, stdin);
+			trim(filename);
+			FILE* file = fopen(filename, "w");
+			delete[] filename;
+			writeToNewFile(phoneBook, file);
 			break;
 		}
 		default:

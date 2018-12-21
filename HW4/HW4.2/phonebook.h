@@ -1,4 +1,5 @@
 #pragma once
+#include <cstdio>
 
 struct Record
 {
@@ -7,7 +8,7 @@ struct Record
 	int phoneNumber = 0;
 };
 
-struct PhoneBook 
+struct PhoneBook
 {
 	Record* head = nullptr;
 };
@@ -18,6 +19,5 @@ Record* findRecordByName(PhoneBook*, char* name);
 Record* findRecordByPhoneNumber(PhoneBook*, int phoneNumber);
 void deleteRecord(PhoneBook*, Record*);
 void deletePhoneBook(PhoneBook*);
-void writeToNewFile(PhoneBook*);
-void fillPhoneBookFromFile(PhoneBook*);
-bool areStringsEqual(char*, char*);
+void writeToNewFile(PhoneBook*, FILE*);
+void fillPhoneBookFromFile(PhoneBook*, FILE*);
