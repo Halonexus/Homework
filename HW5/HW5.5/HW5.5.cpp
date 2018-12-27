@@ -1,14 +1,11 @@
 #include <cstdio>
-#include "Stack.h"
 #include "StringOperations.h"
-#include "StackCreation.h"
-#include "StackCalculation.h"
+#include "Calculator.h"
 
 void printMessage();
 void getInput(char*& input);
 void printOutput(const int output);
 void freeMemory(char*);
-void calculateStack(bool&, char*&);
 
 int const stringLength = 256;
 
@@ -20,26 +17,15 @@ int main()
 		char* input = nullptr;
 		printMessage();
 		getInput(input);
-		calculateStack(isExiting, input);
-	}
-	return 0;
-}
-
-void calculateStack(bool& isExiting, char*& input)
-{
-	Stack stack;
-	processString(input, stack);
-	if (!input)
-	{
-		isExiting = true;
-	}
-	else
-	{
-		int output = calculateOutput(stack);
-		printOutput(output);
+		int result = calculateStack(isExiting, input);
+		if (isExiting)
+		{
+			break;
+		}
+		printOutput(result);
 		freeMemory(input);
 	}
-	return;
+	return 0;
 }
 
 void printOutput(const int output)
