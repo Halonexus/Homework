@@ -1,10 +1,5 @@
 #include "HashTable.h"
 
-int maxTries = 0;
-String maxTryString;
-int tries = 0;
-int words = 0;
-
 HashTable* createTable(int size)
 {
 	return new HashTable{ new String[size] , new int[size] {}, size };
@@ -35,6 +30,7 @@ void deleteHashTable(HashTable* table)
 	deleteHashTable(table->table, table->size);
 	delete[] table->table;
 	delete[] table->uses;
+	deleteString(table->maxTryString);
 	table->size = 0;
 	return;
 }
@@ -45,7 +41,7 @@ int hash(String string, int size)
 	int length = getSize(string);
 	for (int i = 0; i < length; i++)
 	{
-		result = (result + string[i]) % size;
+		result = (result * (size - 1) + string[length - 1 - i]) % size;
 	}
 	return result;
 }
@@ -68,12 +64,12 @@ void addElement(HashTable* table, String string)
 		index = (index + shift * shift) % table->size;
 		shift++;
 	}
-	tries += shift;
-	words++;
-	if (isEmpty(maxTryString) || maxTries < shift)
+	table->tries += shift;
+	table->words++;
+	if (isEmpty(table->maxTryString) || table->maxTries < shift)
 	{
-		maxTries = shift;
-		maxTryString = string;
+		table->maxTries = shift;
+		table->maxTryString = string;
 	}
 	table->table[index] = string;
 	table->uses[index]++;
@@ -98,22 +94,18 @@ int getUnused(HashTable* table)
 	return count;
 }
 
-double getAverageTries()
+bool isInTable(HashTable* table, String string)
 {
-	return (double)tries / (double)words;
-}
-
-int getMaxTries()
-{
-	return maxTries;
-}
-
-int getTotalWords()
-{
-	return words;
-}
-
-String getMaxTryString()
-{
-	return maxTryString;
+	if (!table || isEmpty(string))
+	{
+		return false;
+	}
+	for (int i = 0; i < table->size; i++)
+	{
+		if (table->table[i] == string)
+		{
+			return true;
+		}
+	}
+	return false;
 }
