@@ -31,22 +31,18 @@ int performOperation(char operation, int value1, int value2)
 	case '+':
 	{
 		return value1 + value2;
-		break;
 	}
 	case '-':
 	{
 		return value1 - value2;
-		break;
 	}
 	case '*':
 	{
 		return value1 * value2;
-		break;
 	}
 	case '/':
 	{
 		return value1 / value2;
-		break;
 	}
 	default:
 		break;
