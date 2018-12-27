@@ -80,7 +80,8 @@ void writeToNewFile(PhoneBook* book, FILE* file)
 	{
 		fputs(current->name, file);
 		fputs("\n", file);
-		char* temp = intToString(current->phoneNumber);
+		char* temp = new char[stringLength];
+		sprintf(temp, "%d", current->phoneNumber);
 		fputs(temp, file);
 		delete[] temp;
 		fputs("\n", file);

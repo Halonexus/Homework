@@ -59,7 +59,7 @@ int main()
 			int phoneNumber = record->phoneNumber;
 			fputs("The phone number is ", stdout);
 			char* temp = new char[stringLength];
-			temp = intToString(phoneNumber);
+			sprintf(temp, "%d", phoneNumber);
 			fputs(temp, stdout);
 			fputs("\n", stdout);
 			delete[] temp;
