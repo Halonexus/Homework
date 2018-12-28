@@ -50,6 +50,7 @@ void getTree(Element*& element, FILE*& file)
 	if (temp[0] != ' ')
 	{
 		element = nullptr;
+		delete[] temp;
 		return;
 	}
 	if (i == 4)
@@ -63,6 +64,7 @@ void getTree(Element*& element, FILE*& file)
 				fgets(character, 2, file);
 			}
 		}
+		delete[] temp;
 		return;
 	}
 	if (i == 5 && temp[1] == '\\' && temp[2] == 'n')
@@ -75,6 +77,7 @@ void getTree(Element*& element, FILE*& file)
 				fgets(character, 2, file);
 			}
 		}
+		delete[] temp;
 		return;
 	}
 	delete[] temp;

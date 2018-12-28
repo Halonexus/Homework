@@ -43,8 +43,14 @@ void makeBinary(Element* element, char* string)
 		return;
 	}
 	element->binaryString = string;
-	makeBinary(element->leftChild, concatenate(string, "0"));
-	makeBinary(element->rightChild, concatenate(string, "1"));
+	if (element->leftChild)
+	{
+		makeBinary(element->leftChild, concatenate(string, "0"));
+	}
+	if (element->rightChild)
+	{
+		makeBinary(element->rightChild, concatenate(string, "1"));
+	}
 	return;
 }
 
@@ -52,11 +58,17 @@ void makeBinary(StringTree* tree)
 {
 	if (!tree->root->leftChild && !tree->root->rightChild)
 	{
-		makeBinary(tree->root, new char[2]{ '0', '\0' });
+		tree->root->binaryString = new char[2]{ '0', '\0' };
 		return;
 	}
-	makeBinary(tree->root->leftChild, new char[2]{ '0', '\0' });
-	makeBinary(tree->root->rightChild, new char[2]{ '1', '\0' });
+	if (tree->root->leftChild)
+	{
+		makeBinary(tree->root->leftChild, new char[2]{ '0', '\0' });
+	}
+	if (tree->root->rightChild)
+	{
+		makeBinary(tree->root->rightChild, new char[2]{ '1', '\0' });
+	}
 	return;
 }
 
