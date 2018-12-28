@@ -5,25 +5,24 @@ int const stringLength = 256;
 
 void createAdjacencyMatrix(int**, bool**&, int, int);
 void getMatrix(int**& matrix, int rows, int columns, FILE* file);
+void getMapSize(FILE* file, int& rows, int& columns);
 
 int main()
 {
-	printf("Enter the amount of rows: ");
-	int rows = 0;
-	int columns = 0;
-	scanf("%d", &rows);
-	printf("Enter the amount of columns: ");
-	scanf("%d", &columns);
 	printf("Enter the filename: ");
 	char* filename = new char[stringLength];
 	scanf("%s", filename);
 	FILE* file = fopen(filename, "r");
+	delete[] filename;
 	if (!file)
 	{
 		printf("Error opening file.\n");
 	}
 	else
 	{
+		int rows = 0;
+		int columns = 0;
+		getMapSize(file, rows, columns);
 		int** matrix = new int*[rows];
 		bool** result = new bool*[rows];
 		for (int i = 0; i < rows; i++)
@@ -44,9 +43,10 @@ int main()
 		for (int i = 0; i < rows; i++)
 		{
 			int count = 0;
-			Node* end = new Node{ i, 0, 0, 0, nullptr };
+
 			for (int j = 0; j < rows; j++)
 			{
+				Node* end = new Node{ i, 0, 0, 0, nullptr };
 				Node* start = new Node{ j, 0, 0, 0, nullptr };
 				if (aStar(start, end, result, rows))
 				{
@@ -66,7 +66,6 @@ int main()
 		delete[] matrix;
 		delete[] result;
 	}
-	
 	return 0;
 }
 
@@ -120,5 +119,29 @@ void getMatrix(int**& matrix, int rows, int columns, FILE* file)
 			}
 		}
 	}
+	return;
+}
+
+void getMapSize(FILE* file, int& rows, int& columns)
+{
+	char character[2] = { '\0' };
+	while (!feof(file) && character[0] != '\n')
+	{
+		fgets(character, 2, file);
+		if (character[0] == '0' || character[0] == '1')
+		{
+			columns++;
+		}
+	}
+	rows = 1;
+	while (!feof(file))
+	{
+		if (character[0] == '\n')
+		{
+			rows++;
+		}
+		fgets(character, 2, file);
+	}
+	rewind(file);
 	return;
 }

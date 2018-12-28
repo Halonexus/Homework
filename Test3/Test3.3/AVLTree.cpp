@@ -47,7 +47,7 @@ TreeElement* balance(TreeElement* element)
 	updateHeight(element);
 	if (balanceFactor(element) == 2)
 	{
-		if ((element->rightChild) < 0)
+		if (balanceFactor(element->rightChild) < 0)
 		{
 			element->rightChild = rotateRight(element->rightChild);
 		}
@@ -89,21 +89,13 @@ void addTreeElement(AVLTree& tree, Node*& node)
 	return;
 }
 
-void deleteTreeElement(TreeElement*& element, Node*& node)
+bool deleteTreeElement(TreeElement*& element, Node*& node)
 {
 	if (!element)
 	{
-		return;
+		return false;
 	}
-	if (element->node->f < node->f)
-	{
-		deleteTreeElement(element->rightChild, node);
-	}
-	else if (element->node->f > node->f)
-	{
-		deleteTreeElement(element->leftChild, node);
-	}
-	else
+	if (element->node == node)
 	{
 		TreeElement* temp = nullptr;
 		if (element->leftChild && element->rightChild)
@@ -123,9 +115,15 @@ void deleteTreeElement(TreeElement*& element, Node*& node)
 		}
 		delete element;
 		element = temp;
+		element = balance(element);
+		return true;
 	}
-	element = balance(element);
-	return;
+	bool temp = deleteTreeElement(element->leftChild, node);
+	if (!temp)
+	{
+		temp = deleteTreeElement(element->rightChild, node);
+	}
+	return temp ? true : false;
 }
 
 void deleteTreeElement(AVLTree& tree, Node*& node)
@@ -140,7 +138,12 @@ void deleteTree(TreeElement*& element)
 	{
 		deleteTree(element->leftChild);
 		deleteTree(element->rightChild);
+		if (element->node)
+		{
+			delete element->node;
+		}
 		delete element;
+		element = nullptr;
 	}
 	return;
 }

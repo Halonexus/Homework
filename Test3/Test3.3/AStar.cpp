@@ -19,6 +19,9 @@ bool aStar(Node* start, Node* end, bool** map, int size)
 				child->f = child->g;
 				if (child->number == end->number)
 				{
+					delete end;
+					delete child;
+					delete q;
 					deleteTree(open);
 					deleteTree(closed);
 					return true;
@@ -43,6 +46,7 @@ bool aStar(Node* start, Node* end, bool** map, int size)
 		}
 		addTreeElement(closed, q);
 	}
+	delete end;
 	deleteTree(open);
 	deleteTree(closed);
 	return false;
