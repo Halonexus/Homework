@@ -72,6 +72,7 @@ void getTree(Element*& element, FILE*& file)
 		element = new Element{ new char[3]{ temp[1], temp[2], '\0' }, nullptr, 0, nullptr, nullptr };
 		for (int j = 0; j < 2; j++)
 		{
+			fgets(character, 2, file);
 			while (character[0] != '(' && character[0] != '\n')
 			{
 				fgets(character, 2, file);
