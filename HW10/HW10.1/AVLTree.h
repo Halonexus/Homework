@@ -3,10 +3,10 @@
 
 struct TreeElement
 {
-	Node* node;
+	Node* node = nullptr;
 	int height;
-	TreeElement* leftChild;
-	TreeElement* rightChild;
+	TreeElement* leftChild = nullptr;
+	TreeElement* rightChild = nullptr;
 };
 
 struct AVLTree

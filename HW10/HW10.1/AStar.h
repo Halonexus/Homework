@@ -10,7 +10,7 @@ struct Node
 	Node* parent = nullptr;
 };
 
-bool AStar(Node* start, Node* end, bool**, int, int);
+bool aStar(Node* start, Node* end, bool**, int, int);
 int heuristic(Node* current, Node* end);
 bool isValid(bool** map, int rows, int columns, int row, int column);
 bool isValid(bool** map, int rows, int columns, Node* node);

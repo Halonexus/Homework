@@ -3,7 +3,7 @@
 #include "AVLTree.h"
 #include "Stack.h"
 
-bool AStar(Node* start, Node* end, bool** map, int rows, int columns)
+bool aStar(Node* start, Node* end, bool** map, int rows, int columns)
 {
 	if (!isValid(map, rows, columns, start) || !isValid(map, rows, columns, end))
 	{
@@ -31,6 +31,9 @@ bool AStar(Node* start, Node* end, bool** map, int rows, int columns)
 					if (child->x == end->x && child->y == end->y)
 					{
 						printPath(child);
+						delete child;
+						delete end;
+						delete q;
 						deleteTree(open);
 						deleteTree(closed);
 						return true;
@@ -56,6 +59,7 @@ bool AStar(Node* start, Node* end, bool** map, int rows, int columns)
 		}
 		addTreeElement(closed, q);
 	}
+	delete end;
 	deleteTree(open);
 	deleteTree(closed);
 	return false;

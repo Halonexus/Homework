@@ -31,10 +31,6 @@ void deleteStack(Stack& stack)
 	while (stack.head)
 	{
 		StackElement* temp = stack.head->next;
-		if (stack.head->node)
-		{
-			delete stack.head->node;
-		}
 		delete stack.head;
 		stack.head = temp;
 	}
@@ -43,10 +39,6 @@ void deleteStack(Stack& stack)
 
 void deleteElement(StackElement& element)
 {
-	if (element.node)
-	{
-		delete element.node;
-	}
 	delete &element;
 	return;
 }
