@@ -47,7 +47,7 @@ TreeElement* balance(TreeElement* element)
 	updateHeight(element);
 	if (balanceFactor(element) == 2)
 	{
-		if ((element->rightChild) < 0)
+		if (balanceFactor(element->rightChild) < 0)
 		{
 			element->rightChild = rotateRight(element->rightChild);
 		}
@@ -109,11 +109,6 @@ void deleteTreeElement(TreeElement*& element, char character)
 	}
 	else
 	{
-		//if (element->amount > 1)
-		//{
-		//	element->amount--;
-		//	return;
-		//}
 		TreeElement* temp = nullptr;
 		if (element->leftChild && element->rightChild)
 		{

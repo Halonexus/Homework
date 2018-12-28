@@ -19,6 +19,7 @@ int main()
 	fgets(filename, 256, stdin);
 	trim(filename);
 	FILE* file = fopen(filename, "r");
+	delete[] filename;
 	if (!file)
 	{
 		fputs("Error opening file.", stdout);
@@ -32,25 +33,31 @@ int main()
 			fgets(character, 2, file);
 			addTreeElement(tree, character[0]);
 		}
+
 		int characterAmount = getNumberOfNodes(tree);
 		Element** characters = new Element*[characterAmount] {nullptr};
 		int totalAmount = 0;
 		createCharacterArray(characters, characterAmount, totalAmount, tree, character[0]);
 		sort(characters, characterAmount);
+
 		Element** strings = nullptr;
 		createStringsArray(strings, characterAmount, characters);
 		StringTree* stringTree = nullptr;
 		createStringTree(stringTree, strings, characters, characterAmount);
 		makeBinary(stringTree);
 		rewind(file);
+
 		fputs("Enter the output filename: ", stdout);
+		filename = new char[stringLength];
 		fgets(filename, 256, stdin);
 		trim(filename);
 		FILE* output = fopen(filename, "w");
+
 		printCharacterFrequency(characters, characterAmount);
 		printTreeNodes(stringTree, output);
 		fputs("\n", output);
 		printBinary(file, output, characters, characterAmount, totalAmount);
+
 		delete[] filename;
 		deleteTree(tree);
 		deleteTree(stringTree);
@@ -76,7 +83,10 @@ void printCharacterFrequency(Element** characters, int size)
 	{
 		fputs(characters[i]->string, stdout);
 		fputs("  ", stdout);
-		fputs(intToString(characters[i]->amount), stdout);
+		char* temp = new char[stringLength];
+		sprintf(temp, "%d", characters[i]->amount);
+		fputs(temp, stdout);
+		delete[] temp;
 		fputs("\n", stdout);
 	}
 	return;
