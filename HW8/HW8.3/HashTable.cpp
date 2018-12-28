@@ -100,12 +100,16 @@ bool isInTable(HashTable* table, String string)
 	{
 		return false;
 	}
-	for (int i = 0; i < table->size; i++)
+	int index = hash(string, table->size);
+	int shift = 0;
+	while (!isEmpty(table->table[index]))
 	{
-		if (table->table[i] == string)
+		if (table->table[index] == string)
 		{
 			return true;
 		}
+		index = (index + shift * shift) % table->size;
+		shift++;
 	}
 	return false;
 }
