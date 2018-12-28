@@ -1,44 +1,5 @@
 #include "StringOperations.h"
 
-char* intToString(int input)
-{
-	bool isException = false;
-	bool isNegative = false;
-	if (input == -2147483647 - 1)
-	{
-		isException = true;
-		input++;
-	}
-	if (input < 0)
-	{
-		isNegative = true;
-		input = -input;
-	}
-	int temp = input;
-	int length = 0;
-	while (temp > 0)
-	{
-		length++;
-		temp /= 10;
-	}
-	if (input == 0)
-		length = 1;
-	temp = input;
-	char* string = new char[length + 1 + isNegative];
-	if (isNegative)
-		string[0] = '-';
-	string[length + isNegative] = '\0';
-	char digits[] = { '0','1','2','3','4','5','6','7','8','9' };
-	for (int i = 0; i < length; i++)
-	{
-		string[length + isNegative - 1 - i] = digits[temp % 10];
-		temp /= 10;
-	}
-	if (isException)
-		string[length + isNegative - 1] = '8';
-	return string;
-}
-
 void trim(char* string)
 {
 	if (!string)

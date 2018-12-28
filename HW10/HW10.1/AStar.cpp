@@ -7,6 +7,8 @@ bool aStar(Node* start, Node* end, bool** map, int rows, int columns)
 {
 	if (!isValid(map, rows, columns, start) || !isValid(map, rows, columns, end))
 	{
+		delete start;
+		delete end;
 		return false;
 	}
 	AVLTree open, closed;

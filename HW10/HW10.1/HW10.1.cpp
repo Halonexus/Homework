@@ -43,7 +43,10 @@ int main()
 		Node* start = nullptr;
 		Node* end = nullptr;
 		getPoints(start, end);
-		aStar(start, end, map, rows, columns);
+		if (!aStar(start, end, map, rows, columns))
+		{
+			fputs("No possible route found.\n", stdout);
+		}
 		for (int i = 0; i < rows; i++)
 		{
 			delete[] map[i];
