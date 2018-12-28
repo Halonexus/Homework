@@ -23,24 +23,31 @@ int main()
 	char* pattern = new char[subStringLength + 1];
 
 	fputs("Indexes of subString in the string:\n", stdout);
+	for (int j = 0; j < subStringLength; j++)
+	{
+		pattern[j] = string[j];
+	}
+	pattern[subStringLength] = '\0';
+	int patternHash = hash(pattern, hashSize);
 	for (int i = 0; i < stringLength - subStringLength + 1; i++)
 	{
-		for (int j = 0; j < subStringLength; j++)
+		if (subStringHash == patternHash)
 		{
-			pattern[j] = string[i + j];
-		}
-		pattern[subStringLength] = '\0';
-		if (subStringHash == hash(pattern, hashSize))
-		{
+			for (int j = 0; j < subStringLength; j++)
+			{
+				pattern[j] = string[i + j];
+			}
+			pattern[subStringLength] = '\0';
 			if (equals(subString, pattern))
 			{
 				char* temp = new char[stringLength];
-				temp = intToString(i);
+				sprintf(temp, "%d", i);
 				fputs(temp, stdout);
 				fputs(" ", stdout);
 				delete[] temp;
 			}
 		}
+		patternHash = (patternHash - string[i] + string[i + subStringLength]) % hashSize;
 	}
 	delete[] string;
 	delete[] subString;
