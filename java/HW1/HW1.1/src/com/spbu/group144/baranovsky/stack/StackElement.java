@@ -1,8 +1,6 @@
 package com.spbu.group144.baranovsky.stack;
 
-/**
- * An element of a stack containing an integer value.
- */
+/** An element of a stack containing an integer value.*/
 public class StackElement {
     private int value;
     private StackElement next;
@@ -15,7 +13,7 @@ public class StackElement {
         return next;
     }
 
-    public StackElement(int value, StackElement next){
+    public StackElement(int value, StackElement next) {
         this.next = next;
         this.value = value;
     }
