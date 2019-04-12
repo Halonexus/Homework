@@ -1,8 +1,6 @@
 package com.spbu.group144.baranovsky.list;
 
-/**
- * A single-linked list for storing integer values.
- */
+/** A single-linked list for storing integer values.*/
 public class List {
     private ListElement head;
 
@@ -24,8 +22,7 @@ public class List {
      * @param value The integer value of the new element.
      */
     public void addElement(int value) {
-        ListElement currentHead = head;
-        head = new ListElement(value, currentHead);
+        head = new ListElement(value, head);
     }
 
     /**
@@ -42,11 +39,14 @@ public class List {
             return;
         }
         ListElement current = head;
-        while (current.getNext() != null) {
-            if (current.getNext().getValue() == value) {
-                current.setNext(current.getNext().getNext());
+        ListElement next = current.getNext();
+        while (next != null) {
+            if (next.getValue() == value) {
+                current.setNext(next.getNext());
                 return;
             }
+            current = next;
+            next = next.getNext();
         }
     }
 

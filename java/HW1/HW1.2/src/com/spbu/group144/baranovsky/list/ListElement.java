@@ -1,8 +1,6 @@
 package com.spbu.group144.baranovsky.list;
 
-/**
- * An element of a list that stores an integer value.
- */
+/** An element of a list that stores an integer value.*/
 public class ListElement {
     private int value;
     private ListElement next;
